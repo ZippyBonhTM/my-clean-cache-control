@@ -31,18 +31,22 @@ class CacheStoreSpy implements CacheStore {
   }
 }
 
+function SutFactory() {
+  const cacheStore = new CacheStoreSpy();
+  const sut = new LocalSavePurchases(cacheStore);
+  return { cacheStore, sut };
+}
+
 
 describe('LocalSavePurchases', () => {
   test('Shold not calls any method when initialized sut', () => {
-    const cacheStore = new CacheStoreSpy();
-    const sut = new LocalSavePurchases(cacheStore);
+    const { cacheStore } = SutFactory();
     expect(cacheStore.saveCallsCount).toBe(0);
+    expect(cacheStore.deleteCallsCount).toBe(0);
   });
 
-  test('Showd delete before save new cache', async () => {
-    const cacheStore = new CacheStoreSpy();
-    const sut = new LocalSavePurchases(cacheStore);
-
+  test('Shold delete before save new cache', async () => {
+    const { cacheStore, sut } = SutFactory();
     await sut.save();
     expect(cacheStore.saveCallsCount).toBe(1);
     expect(cacheStore.deleteCallsCount).toBe(1);

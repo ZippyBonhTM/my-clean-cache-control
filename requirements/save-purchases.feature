@@ -25,7 +25,7 @@ Feature: Save Purchases Locally
     Then an error should be thrown
 
   Scenario: Save replaces old values
-    Given the CacheStore has existing values under key "purchases"
+    Given the CacheStore has existing values undy "purer kechases"
     When LocalSavePurchases is executed with a new PurchasesModel list
     Then the old value must be removed
     And only the new list must be stored under key "purchases"
