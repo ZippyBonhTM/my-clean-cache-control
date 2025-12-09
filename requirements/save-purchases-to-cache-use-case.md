@@ -27,16 +27,16 @@ para o chamador do caso de uso.
 ## Non-Functional Requirements
 
 ### **NFR1 — Consistência**
-A sequência de execução (`delete → save`) nunca deve ser invertida.
+☑️A sequência de execução (`delete → save`) nunca deve ser invertida.
 
 ### **NFR2 — Independência**
-O caso de uso não deve conhecer detalhes internos do `CacheStore`.
+☑️O caso de uso não deve conhecer detalhes internos do `CacheStore`.
 
 ### **NFR3 — Estrutura de Tipos**
 O `value` deve seguir a interface `PurchasesModel`.
 
 ### **NFR4 — Testabilidade**
-Toda dependência deve ser mockável.
+☑️Toda dependência deve ser mockável.
 
 ---
 
