@@ -1,3 +1,3 @@
 export interface SavePurchases {
-  save: () => Promise<void>;
+  save: (key: string, value: any) => Promise<void>;
 }

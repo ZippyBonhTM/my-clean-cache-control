@@ -1,4 +1,4 @@
 export interface CacheStore {
-  save: () => Promise<void>;
-  delete: () => Promise<void>;
+  save: (key: string, value: any) => Promise<void>;
+  delete: (key: string) => Promise<void>;
 }

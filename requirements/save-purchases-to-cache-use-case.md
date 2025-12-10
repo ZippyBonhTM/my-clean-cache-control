@@ -33,7 +33,7 @@ para o chamador do caso de uso.
 ☑️O caso de uso não deve conhecer detalhes internos do `CacheStore`.
 
 ### **NFR3 — Estrutura de Tipos**
-O `value` deve seguir a interface `PurchasesModel`.
+☑️O `value` deve seguir a interface `PurchasesModel`.
 
 ### **NFR4 — Testabilidade**
 ☑️Toda dependência deve ser mockável.
@@ -43,7 +43,7 @@ O `value` deve seguir a interface `PurchasesModel`.
 ## Business Rules
 
 ### **BR1 — Chave de persistência**
-A key é obrigatória e deve ser usada como identificador único da persistência.
+☑️A key é obrigatória e deve ser usada como identificador único da persistência.
 
 ### **BR2 — Múltiplos saves**
 Se a mesma key for salva novamente, o valor anterior deve ser apagado e substituído.
