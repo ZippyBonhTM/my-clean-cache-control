@@ -14,6 +14,7 @@ class CacheStoreSpy implements CacheStore {
 
   async save(key: string, value: any): Promise<void> {
     this.messages.push(CacheStoreCalls.save);
+    this.cache[key] = value;
   }
 
   async delete(key: string): Promise<void> {
@@ -48,6 +49,6 @@ describe('LocalSavePurchases', () => {
   test('Shold save the cache in specified key', async () => {
     const { cacheStore, sut } = SutFactory();
     await sut.save('purchases', mockPurchases);
-    expect(cacheStore.messages).toEqual([CacheStoreCalls.delete, CacheStoreCalls.save]);
+    expect(cacheStore.cache['purchases']).toEqual(mockPurchases);
   });
 });
