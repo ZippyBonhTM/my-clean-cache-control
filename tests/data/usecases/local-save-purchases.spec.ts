@@ -1,7 +1,7 @@
 import { LocalSavePurchases } from "@/data/usecases/local-save-purchases.js";
 import type { PurchasesModel } from "@/domain/models/purchases-model.js";
-import type { CacheStore } from "@/domain/protocols/cache-store.js";
-import { describe, expect, test } from "vitest";
+import type { CacheStore } from "@/domain/protocols/cache/cache-store.js";
+import { describe, expect, test, vi } from "vitest";
 
 enum CacheStoreCalls {
   delete,
@@ -20,9 +20,13 @@ class CacheStoreSpy implements CacheStore {
   async delete(key: string): Promise<void> {
     this.messages.push(CacheStoreCalls.delete);
   }
+
+  simulateDeleteError(): void {
+    vi.spyOn(CacheStoreSpy.prototype, 'delete').mockImplementationOnce(() => { throw new Error });
+  }
 }
 
-function SutFactory() {
+function sutFactory() {
   const cacheStore = new CacheStoreSpy();
   const sut = new LocalSavePurchases(cacheStore);
   return { cacheStore, sut };
@@ -36,19 +40,27 @@ const mockPurchases: PurchasesModel = [
 
 describe('LocalSavePurchases', () => {
   test('Shold not calls any method when initialized sut', () => {
-    const { cacheStore } = SutFactory();
+    const { cacheStore } = sutFactory();
     expect(cacheStore.messages).toEqual([]);
   });
 
   test('Shold delete before save new cache', async () => {
-    const { cacheStore, sut } = SutFactory();
+    const { cacheStore, sut } = sutFactory();
     await sut.save('purchases', mockPurchases);
     expect(cacheStore.messages).toEqual([CacheStoreCalls.delete, CacheStoreCalls.save]);
   });
 
   test('Shold save the cache in specified key', async () => {
-    const { cacheStore, sut } = SutFactory();
+    const { cacheStore, sut } = sutFactory();
     await sut.save('purchases', mockPurchases);
     expect(cacheStore.cache['purchases']).toEqual(mockPurchases);
+  });
+
+  test('Shold not save if delete fails', async () => {
+    const { cacheStore, sut } = sutFactory();
+    cacheStore.simulateDeleteError();
+    const sutCall = sut.save('purchases', mockPurchases);
+    expect(sutCall).rejects.toThrow();
+    expect(cacheStore.messages).toEqual([]);
   });
 });
