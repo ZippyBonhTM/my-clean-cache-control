@@ -22,7 +22,7 @@ class CacheStoreSpy implements CacheStore {
   }
 
   simulateDeleteError(): void {
-    vi.spyOn(CacheStoreSpy.prototype, 'delete').mockImplementationOnce(() => { throw new Error });
+    vi.spyOn(CacheStoreSpy.prototype, 'delete').mockImplementationOnce(() => { throw new Error() });
   }
 }
 
