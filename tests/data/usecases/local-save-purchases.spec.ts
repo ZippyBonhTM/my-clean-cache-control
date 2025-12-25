@@ -24,6 +24,10 @@ class CacheStoreSpy implements CacheStore {
   simulateDeleteError(): void {
     vi.spyOn(CacheStoreSpy.prototype, 'delete').mockImplementationOnce(() => { throw new Error() });
   }
+
+  simulateSaveError(): void {
+    vi.spyOn(CacheStoreSpy.prototype, 'save').mockImplementationOnce(() => { throw new Error() });
+  }
 }
 
 function sutFactory() {
@@ -56,11 +60,21 @@ describe('LocalSavePurchases', () => {
     expect(cacheStore.cache['purchases']).toEqual(mockPurchases);
   });
 
-  test('Shold not save if delete fails', async () => {
+  test('Shold not save if sut.delete fails', async () => {
     const { cacheStore, sut } = sutFactory();
     cacheStore.simulateDeleteError();
     const sutCall = sut.save('purchases', mockPurchases);
-    expect(sutCall).rejects.toThrow();
+    await expect(sutCall).rejects.toThrow();
     expect(cacheStore.messages).toEqual([]);
+    expect
+  });
+
+  test('Shold not save if sut.save fails', async () => {
+    const { cacheStore, sut } = sutFactory();
+    cacheStore.simulateSaveError();
+    const sutCall = sut.save('purchases', mockPurchases);
+    await expect(sutCall).rejects.toThrow();
+    expect(cacheStore.cache['purchases']).toBeUndefined();
+    expect(cacheStore.messages).toEqual([CacheStoreCalls.delete]);
   });
 });
