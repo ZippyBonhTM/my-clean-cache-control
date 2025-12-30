@@ -66,7 +66,7 @@ describe('LocalSavePurchases', () => {
     const sutCall = sut.save('purchases', mockPurchases);
     await expect(sutCall).rejects.toThrow();
     expect(cacheStore.messages).toEqual([]);
-    expect
+    expect(cacheStore.cache['purchases']).toBeUndefined();
   });
 
   test('Shold not save if sut.save fails', async () => {
@@ -77,4 +77,5 @@ describe('LocalSavePurchases', () => {
     expect(cacheStore.cache['purchases']).toBeUndefined();
     expect(cacheStore.messages).toEqual([CacheStoreCalls.delete]);
   });
+
 });
