@@ -46,6 +46,6 @@ para o chamador do caso de uso.
 ☑️A key é obrigatória e deve ser usada como identificador único da persistência.
 
 ### **BR2 — Múltiplos saves**
-Se a mesma key for salva novamente, o valor anterior deve ser apagado e substituído.
+☑️Se a mesma key for salva novamente, o valor anterior deve ser apagado e substituído.
 
 ---
