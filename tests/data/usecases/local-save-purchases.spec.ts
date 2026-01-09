@@ -1,34 +1,9 @@
 import { LocalSavePurchases } from "@/data/usecases/local-save-purchases.js";
+import CacheStoreSpy from "@/moks/cache/cache-store-spy.js";
+import { CacheStoreCalls } from "../../moks/cache/cache-store-spy.js";
 import type { PurchasesModel } from "@/domain/models/purchases-model.js";
-import type { CacheStore } from "@/domain/protocols/cache/cache-store.js";
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test } from "vitest";
 
-enum CacheStoreCalls {
-  delete,
-  save,
-}
-
-class CacheStoreSpy implements CacheStore {
-  messages: Array<CacheStoreCalls> = [];
-  cache: Record<string, any> = {};
-
-  async save(key: string, value: any): Promise<void> {
-    this.messages.push(CacheStoreCalls.save);
-    this.cache[key] = value;
-  }
-
-  async delete(key: string): Promise<void> {
-    this.messages.push(CacheStoreCalls.delete);
-  }
-
-  simulateDeleteError(): void {
-    vi.spyOn(CacheStoreSpy.prototype, 'delete').mockImplementationOnce(() => { throw new Error() });
-  }
-
-  simulateSaveError(): void {
-    vi.spyOn(CacheStoreSpy.prototype, 'save').mockImplementationOnce(() => { throw new Error() });
-  }
-}
 
 function sutFactory() {
   const cacheStore = new CacheStoreSpy();
@@ -43,24 +18,24 @@ const mockPurchases: PurchasesModel = [
 
 
 describe('LocalSavePurchases', () => {
-  test('Shold not calls any method when initialized sut', () => {
+  test('Should not calls any method when initialized sut', () => {
     const { cacheStore } = sutFactory();
     expect(cacheStore.messages).toEqual([]);
   });
 
-  test('Shold delete before save new cache', async () => {
+  test('Should delete before save new cache', async () => {
     const { cacheStore, sut } = sutFactory();
     await sut.save('purchases', mockPurchases);
     expect(cacheStore.messages).toEqual([CacheStoreCalls.delete, CacheStoreCalls.save]);
   });
 
-  test('Shold save the cache in specified key', async () => {
+  test('Should save the cache in specified key', async () => {
     const { cacheStore, sut } = sutFactory();
     await sut.save('purchases', mockPurchases);
     expect(cacheStore.cache['purchases']).toEqual(mockPurchases);
   });
 
-  test('Shold not save if sut.delete fails', async () => {
+  test('Should not save if sut.delete fails', async () => {
     const { cacheStore, sut } = sutFactory();
     cacheStore.simulateDeleteError();
     const sutCall = sut.save('purchases', mockPurchases);
@@ -69,7 +44,7 @@ describe('LocalSavePurchases', () => {
     expect(cacheStore.cache['purchases']).toBeUndefined();
   });
 
-  test('Shold not save if sut.save fails', async () => {
+  test('Should not save if sut.save fails', async () => {
     const { cacheStore, sut } = sutFactory();
     cacheStore.simulateSaveError();
     const sutCall = sut.save('purchases', mockPurchases);

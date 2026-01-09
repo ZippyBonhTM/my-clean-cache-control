@@ -10,9 +10,9 @@
     "module": "nodenext",
     "target": "esnext",
     "types": [],
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["*"]
+      "@/*": ["./src/*", "./tests/*"]
     },
     // For nodejs:
     // "lib": ["esnext"],
