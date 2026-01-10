@@ -1,6 +1,6 @@
 import { LocalSavePurchases } from "@/data/usecases/local-save-purchases.js";
-import CacheStoreSpy from "@/moks/cache/cache-store-spy.js";
-import { CacheStoreCalls } from "../../moks/cache/cache-store-spy.js";
+import CacheStoreSpy from "@tests/moks/cache/cache-store-spy.js";
+import { CacheStoreCalls } from "@tests/moks/cache/cache-store-spy.js";
 import type { PurchasesModel } from "@/domain/models/purchases-model.js";
 import { describe, expect, test } from "vitest";
 

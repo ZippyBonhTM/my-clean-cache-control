@@ -1,3 +1,5 @@
+import type { PurchasesModel } from "../models/purchases-model.js";
+
 export interface SavePurchases {
-  save: (key: string, value: any) => Promise<void>;
+  save: (key: string, value: PurchasesModel) => Promise<void>;
 }

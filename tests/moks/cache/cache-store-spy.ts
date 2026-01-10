@@ -4,6 +4,7 @@ import { vi } from "vitest";
 export enum CacheStoreCalls {
   delete,
   save,
+  load,
 }
 
 export default class CacheStoreSpy implements CacheStore {
@@ -19,11 +20,16 @@ export default class CacheStoreSpy implements CacheStore {
     this.messages.push(CacheStoreCalls.delete);
   }
 
+  async load(key: string): Promise<any> {
+    this.messages.push(CacheStoreCalls.load);
+    return this.cache[key] ? this.cache[key] : null;
+  }
+
   simulateDeleteError(): void {
-    vi.spyOn(CacheStoreSpy.prototype, 'delete').mockImplementationOnce(() => { throw new Error() });
+    vi.spyOn(CacheStoreSpy.prototype, 'delete').mockImplementationOnce(() => { throw new Error(); });
   }
 
   simulateSaveError(): void {
-    vi.spyOn(CacheStoreSpy.prototype, 'save').mockImplementationOnce(() => { throw new Error() });
+    vi.spyOn(CacheStoreSpy.prototype, 'save').mockImplementationOnce(() => { throw new Error(); });
   }
 }
