@@ -24,7 +24,7 @@ Qualquer erro na operação `fetch` deve ser repassado ao chamador.
 O caso de uso não deve conhecer detalhes concretos do cache.
 
 ### **NFR2 — Estrutura de dados consistente**
-O retorno deve sempre ser `PurchasesModel[]`.
+O retorno deve sempre ser `PurchasesModel`.
 
 ---
 
