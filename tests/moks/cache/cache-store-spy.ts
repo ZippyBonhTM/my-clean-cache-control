@@ -32,4 +32,8 @@ export default class CacheStoreSpy implements CacheStore {
   simulateSaveError(): void {
     vi.spyOn(CacheStoreSpy.prototype, 'save').mockImplementationOnce(() => { throw new Error(); });
   }
+
+  simulateFetchError(): void {
+     vi.spyOn(CacheStoreSpy.prototype, 'fetch').mockImplementationOnce(() => { throw new Error(); });
+  }
 }

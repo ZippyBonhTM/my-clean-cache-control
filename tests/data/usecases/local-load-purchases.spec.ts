@@ -10,5 +10,15 @@ describe('LocalLoadPurchases', () => {
 
     const result = await sut.load('purchases');
     expect(result).toBeNull();
-  })
+  });
+
+  test('Should throws if fetch fails', async () => {
+    const cacheStore = new CacheStoreSpy();
+    const sut = new LocalLoadPurchases(cacheStore);
+    cacheStore.simulateFetchError();
+
+    const sutCall = sut.load('purchases');
+    expect(sutCall).rejects.toThrow();
+    expect(cacheStore.messages).toEqual([]);
+  });
 });
