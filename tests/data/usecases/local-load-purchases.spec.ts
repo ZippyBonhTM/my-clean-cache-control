@@ -9,7 +9,7 @@ describe('LocalLoadPurchases', () => {
     const sut = new LocalLoadPurchases(cacheStore);
 
     const result = await sut.load('purchases');
-    expect(result).toBeNull();
+    expect(result).toEqual([]);
   });
 
   test('Should throws if fetch fails', async () => {

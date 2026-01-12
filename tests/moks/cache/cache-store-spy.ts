@@ -20,9 +20,9 @@ export default class CacheStoreSpy implements CacheStore {
     this.messages.push(CacheStoreCalls.delete);
   }
 
-  async fetch<T>(key: string): Promise<T | null> {
+  async fetch<T>(key: string): Promise<T> {
     this.messages.push(CacheStoreCalls.load);
-    return this.cache[key] ? this.cache[key] : null;
+    return this.cache[key] ? this.cache[key] : <T>[];
   }
 
   simulateDeleteError(): void {
