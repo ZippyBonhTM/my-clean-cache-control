@@ -1,7 +1,7 @@
 import { LocalSavePurchases } from "@/data/usecases/local-save-purchases.js";
 import CacheStoreSpy from "@tests/moks/cache/cache-store-spy.js";
 import { CacheStoreCalls } from "@tests/moks/cache/cache-store-spy.js";
-import type { PurchasesModel } from "@/domain/models/purchases-model.js";
+import { mockPurchases } from "@tests/moks/purchases/mockPurchases.js";
 import { describe, expect, test } from "vitest";
 
 
@@ -10,12 +10,6 @@ function sutFactory() {
   const sut = new LocalSavePurchases(cacheStore);
   return { cacheStore, sut };
 }
-
-const mockPurchases: PurchasesModel = [
-  { id: '1', title: 'Item A', price: 9.99, quantity: 1, date: new Date('2025-12-10T12:00:00.000Z') },
-  { id: '2', title: 'Item B', price: 19.5, quantity: 2, date: new Date('2025-12-09T15:30:00.000Z') },
-];
-
 
 describe('LocalSavePurchases', () => {
   test('Should not calls any method when initialized sut', () => {
