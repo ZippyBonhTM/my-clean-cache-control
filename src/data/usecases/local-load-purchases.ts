@@ -5,7 +5,7 @@ import type { LoadPurchases } from "@/domain/usecases/load-purchases.js";
 export class LocalLoadPurchases implements LoadPurchases {
   constructor(private readonly cacheStore: CacheStore) { }
 
-  async load(key: string): Promise<PurchasesModel | null> {
+  async load(key: string): Promise<PurchasesModel> {
     return await this.cacheStore.fetch<PurchasesModel>(key);
   };
 }
