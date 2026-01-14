@@ -1,7 +1,7 @@
-import makePurchasesSut from "@tests/factory/data/usecases/makePurchasesSut.js";
+import { describe, test, expect } from "vitest";
 import { CacheStoreCalls } from "@tests/moks/cache/cache-store-spy.js";
-import { mockPurchases } from "@tests/moks/purchases/mockPurchases.js";
-import { describe, expect, test } from "vitest";
+import makePurchasesSut from "@tests/factory/data/usecases/makePurchasesSut.js";
+import mockPurchases from "@tests/moks/purchases/mockPurchases.js";
 
 describe('LocalSavePurchases', () => {
   test('Should not calls any method when initialized savesut', () => {

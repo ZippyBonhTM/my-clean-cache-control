@@ -1,7 +1,7 @@
 export interface PurchaseModel {
   id: string;
   title?: string;
-  price: number;
+  price: string;
   quantity: number;
   date: Date;
 };

@@ -1,6 +1,6 @@
+import { describe, test, expect } from "vitest";
 import { CacheStoreCalls } from "@tests/moks/cache/cache-store-spy.js";
-import { test, describe, expect } from "vitest";
-import { mockPurchases } from "@tests/moks/purchases/mockPurchases.js";
+import mockPurchases from "@tests/moks/purchases/mockPurchases.js";
 import makePurchasesSut from "@tests/factory/data/usecases/makePurchasesSut.js";
 
 describe('LocalLoadPurchases', () => {
