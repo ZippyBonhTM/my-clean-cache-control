@@ -21,7 +21,7 @@ O caso de uso deve carregar a lista de compras armazenadas localmente, associada
 ## Non-Functional Requirements
 
 ### **NFR1 — Independência**
-O caso de uso não deve conhecer detalhes concretos do cache.
+☑️O caso de uso não deve conhecer detalhes concretos do cache.
 
 ### **NFR2 — Estrutura de dados consistente**
 ☑️O retorno deve sempre ser `PurchasesModel`.
@@ -31,6 +31,6 @@ O caso de uso não deve conhecer detalhes concretos do cache.
 ## Business Rules
 
 ### **BR1 — Key é obrigatória**
-A key define o conjunto único de compras salvas.
+☑️A key define o conjunto único de compras salvas.
 
 ---

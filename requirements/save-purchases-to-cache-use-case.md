@@ -10,16 +10,16 @@ A operação deve sempre sobrescrever qualquer dado anterior referente à mesma 
 ## Functional Requirements
 
 ### **FR1 — Remover dados antigos antes de salvar**
-O sistema deve apagar o valor existente no cache para a key informada.
+☑️O sistema deve apagar o valor existente no cache para a key informada.
 
 ### **FR2 — Salvar a nova lista de compras**
-Após apagar, o sistema deve persistir os novos dados associados à key.
+☑️Após apagar, o sistema deve persistir os novos dados associados à key.
 
 ### **FR3 — A operação deve ser atômica**
-Se o `delete` falhar, o `save` **não** deve ser executado.
+☑️Se o `delete` falhar, o `save` **não** deve ser executado.
 
 ### **FR4 — Propagar erros**
-Qualquer erro lançado pelo `CacheStore` deve ser repassado
+☑️Qualquer erro lançado pelo `CacheStore` deve ser repassado
 para o chamador do caso de uso.
 
 ---
